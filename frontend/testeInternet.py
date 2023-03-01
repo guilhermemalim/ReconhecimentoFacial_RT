@@ -7,10 +7,11 @@ from PIL import Image, ImageTk
 cancel = False
 
 def prompt_ok(event=0):
-    global cancel, button, button1, button2
+    global cancel, btn_esq, btn_dir , button1, button2
     cancel = True
 
-    button.place_forget()
+    btn_esq.place_forget()
+    btn_dir.place_forget()
     button1 = tk.Button(mainWindow, text="Good Image!", command=saveAndExit)
     button2 = tk.Button(mainWindow, text="Try Again", command=resume)
     button1.place(anchor=tk.CENTER, relx=0.2, rely=0.9, width=150, height=50)
@@ -27,7 +28,7 @@ def saveAndExit(event=0):
 
     print("Output file to: " + filepath)
     prevImg.save(filepath)
-    mainWindow.quit()
+    resume()
 
 def resume(event=0):
     global button1, button2, button, lmain, cancel
@@ -38,7 +39,21 @@ def resume(event=0):
     button2.place_forget()
 
     mainWindow.bind('<Return>', prompt_ok)
-    button.place(bordermode=tk.INSIDE, relx=0.5, rely=0.9, anchor=tk.CENTER, width=300, height=50)
+    btn_esq.place(bordermode=tk.INSIDE, relx=0.25, rely=0.9, anchor=tk.CENTER, width=300, height=50)
+    btn_dir.place(bordermode=tk.INSIDE, relx=0.75, rely=0.9, anchor=tk.CENTER, width=300, height=50)
+    lmain.after(10, show_frame)
+
+def gerar_relatorio(event=0):
+    global button1, button2, button, lmain, cancel
+
+    cancel = False
+
+    button1.place_forget()
+    button2.place_forget()
+
+    mainWindow.bind('<Return>', prompt_ok)
+    btn_esq.place(bordermode=tk.INSIDE, relx=0.25, rely=0.9, anchor=tk.CENTER, width=300, height=50)
+    btn_dir.place(bordermode=tk.INSIDE, relx=0.75, rely=0.9, anchor=tk.CENTER, width=300, height=50)
     lmain.after(10, show_frame)
 
 cap = cv2.VideoCapture(0)
@@ -51,15 +66,17 @@ mainWindow = tk.Tk(screenName="Camera Capture")
 mainWindow.resizable(width=False, height=False)
 mainWindow.bind('<Escape>', lambda e: mainWindow.quit())
 lmain = tk.Label(mainWindow, compound=tk.CENTER, anchor=tk.CENTER, relief=tk.RAISED)
-button = tk.Button(mainWindow, text="Capture", command=prompt_ok)
+btn_esq = tk.Button(mainWindow, text="Capture", command=prompt_ok)
+btn_dir = tk.Button(mainWindow, text="gerar relatório", command=gerar_relatorio)
 
 lmain.pack()
-button.place(bordermode=tk.INSIDE, relx=0.5, rely=0.9, anchor=tk.CENTER, width=300, height=50)
-button.focus()
+btn_esq.place(bordermode=tk.INSIDE, relx=0.25, rely=0.9, anchor=tk.CENTER, width=300, height=50)
+btn_dir.place(bordermode=tk.INSIDE, relx=0.75, rely=0.9, anchor=tk.CENTER, width=300, height=50)
+#button.focus()
 
 
 def show_frame():
-    global cancel, prevImg, button
+    global cancel, prevImg, btn_esq, btn_dir
 
     _, frame = cap.read()
     cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
