@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 from tkinter import ttk
 
 from abaRelatorio import *
-from recognition import *
+#from recognition import *
 
 cancel = False
 

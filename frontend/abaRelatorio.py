@@ -18,16 +18,21 @@ register_db = None
 client_db = None
 cal_inicial = None
 cal_final = None
+var_check = None
+SelectItem = None
 
+# Função para imprimir o estado da caixa de seleção
+def check():
+    #print(var_check.get())
+    return var_check.get()
 
 def create_navigation(top_frame):
-    global cal_inicial, cal_final, register_db, client_db
+    global cal_inicial, cal_final, register_db, client_db, var_check, SelectItem
     SelectItem = tk.StringVar(top_frame)
     SelectItem.set(" ")  # default value
 
     label_funcionario = tk.Label(top_frame, text='Selec. o funcionário', width=20)
     label_funcionario.grid(row=0, column=0)
-
     lista_funcionarios = client_db.allClientsName()
 
     options = tk.OptionMenu(top_frame, SelectItem, *lista_funcionarios)
@@ -45,12 +50,36 @@ def create_navigation(top_frame):
     cal_final = DateEntry(top_frame, selectmode='day', date_pattern='dd/mm/yyyy')
     cal_final.grid(row=0, column=5, padx=15)
 
-    search_button = ttk.Button(top_frame, text="Pesquisar", command=search_date)
-    search_button.grid(row=0, column=6, padx=15)
+    var_check = tk.BooleanVar()
+    checkbutton = tk.Checkbutton(top_frame, text="Data", variable=var_check)
+    checkbutton .grid(row=0, column=6, padx=15)
 
-def search_date():
-    selected_date = cal_inicial.get()
+    search_button = ttk.Button(top_frame, text="Pesquisar", command=pesquisar_BD)
+    search_button.grid(row=0, column=7, padx=15)
+
+def search_date(data):
+    selected_date = data.get()
     print(selected_date)
+
+def search_item():
+    global  SelectItem
+    selected_item = SelectItem.get()
+    print("Item selecionado:", selected_item)
+
+def pesquisar_BD():
+    global var_check, cal_inicial, cal_final, SelectItem
+
+    if ( check() ):
+        #pesquisar nome e data
+        print("nome e data")
+        search_date(cal_inicial)
+        search_date(cal_final)
+        search_item()
+
+    else:
+        # pesquisar so o nome
+        print("nome")
+
 
 def atualizar_table():
     global tree, register_db, client_db

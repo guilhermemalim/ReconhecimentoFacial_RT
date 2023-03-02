@@ -45,8 +45,8 @@ marcos_face_encoding = face_recognition.face_encodings(marcos_image)[0]
 marcos1_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos1.jpg"))
 marcos1_face_encoding = face_recognition.face_encodings(marcos1_image)[0]
 
-marcos2_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos2.jpg"))
-marcos2_face_encoding = face_recognition.face_encodings(marcos2_image)[0]
+# marcos2_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos2.jpg"))
+# marcos2_face_encoding = face_recognition.face_encodings(marcos2_image)[0]
 
 #################### Odalisio ###################
 
