@@ -43,8 +43,6 @@ class Clientes_DB:
         return result
 
 
-
-
     def createTableClients(self):
         sql_command = '''
         CREATE TABLE IF NOT EXISTS project_rt.clientes (
@@ -57,17 +55,16 @@ class Clientes_DB:
           );
         '''
         self.cursor.execute(sql_command)
-        self.inicializarClientes()
 
     def inicializarClientes(self):
         try:
             print('try')
-            sql_command = "SELECT * FROM projeto_rt.clientes;"
+            sql_command = "SELECT * FROM project_rt.clientes;"
             self.cursor.execute(sql_command)
             result = self.cursor.fetchall()
             if (result == []):
                 print('vazio')
-                sql_command = "INSERT INTO projeto_rt.clientes  VALUES (NULL,%s,%s,%s,%s)"
+                sql_command = "INSERT INTO project_rt.clientes  VALUES (NULL,%s,%s,%s,%s)"
                 val = [("Guilherme Matheus de Aguiar Lima"      , "21950880", "s98", "2"),
                        ("José Marcos Cabrera Neto"              , "21953043", "s23", "1"),
                        ("Luiza Paula Moreira Leão"              , "21950883", "s43", "1"),

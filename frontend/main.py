@@ -10,14 +10,16 @@ from bancoDados.clientes_db import  *
 from abaRelatorio import *
 from recognition import *
 
-password = "senha"
+password = "root"
 database = "project_rt"
 db = BancoDados(host="localhost", user="root", password=password, database=database)
 db.connect()
 client_db = Clientes_DB(db)
-
+register_db = Registro_DB(db)
 
 client_db.createTableClients()
+client_db.inicializarClientes()
+register_db.createTableRegistro()
 
 cancel = False
 name = None
@@ -43,22 +45,17 @@ def prompt_ok(event=0):
     print("nome armazenado: "+name)
     btn_esq.place_forget()
     btn_dir.place_forget()
-    button1 = tk.Button(mainWindow, text="Good Image!", command=RegistrarFuncionrio)
+    button1 = tk.Button(mainWindow, text="Registrar", command=RegistrarFuncionrio)
     button2 = tk.Button(mainWindow, text="Try Again", command=resume)
     button1.place(anchor=tk.CENTER, relx=0.2, rely=0.9, width=150, height=50)
     button2.place(anchor=tk.CENTER, relx=0.8, rely=0.9, width=150, height=50)
     button1.focus()
 
 def RegistrarFuncionrio(event=0):
-    global button1, button2, btn_esq, btn_dir, lmain, cancel
+    global button1, button2, btn_esq, btn_dir, lmain, cancel, db
 
     cancel = False
 
-    password = "root"
-    database = "project_rt"
-    db = BancoDados(host="localhost", user="root", password=password, database=database)
-    db.connect()
-    #print(db.connection)
     client_db = Clientes_DB(db)
     register_db = Registro_DB(db)
 
@@ -81,11 +78,18 @@ def RegistrarFuncionrio(event=0):
     lmain.after(10, show_frame)
 
     if tem_funcionario :
-        print("true")
+
+        ultimo_registro = register_db.lastRegister(id_client)
+        if (ultimo_registro == "Entrada"):
+            variavel_status = "Saída"
+        else:
+            variavel_status = "Entrada"
+
         date_now = datetime.now()
-        new_register = Registro(id_client, date_now, "Entrada")
+        new_register = Registro(id_client, date_now, variavel_status)
         register_db.insertRegister(new_register)
         print(register_db.lastRegister(id_client))
+
         new_win = tk.Toplevel()
         new_win.title("confirmação de registro")
         new_win.geometry('{}x{}'.format(80, 80))

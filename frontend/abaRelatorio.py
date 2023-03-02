@@ -136,7 +136,7 @@ def novaJanela():
     new_win = tk.Toplevel()
     new_win.title("Relatório")
 
-    password = "senha"
+    password = "root"
     database = "project_rt"
     db = BancoDados(host="localhost", user="root", password=password, database=database)
     db.connect()

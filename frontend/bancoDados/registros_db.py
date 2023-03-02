@@ -21,7 +21,11 @@ class Registro_DB:
         sql_command = "SELECT  tipo_registro FROM registros WHERE id_cliente = '{name}' ORDER BY id_registro DESC;".format(name=id_cliente)
         self.cursor.execute(sql_command)
         result = self.cursor.fetchall()
-        return result[0][0]
+
+        if result == []:
+            return "Saída"
+        else:
+            return result[0][0]
 
     def dateClient(self, data1, data2, id_client):
         sql_command = "SELECT  *FROM registros WHERE id_cliente = '{name}' AND data>='{data1}' AND data<='{data2}';".format(name=id_client, data1=data1, data2 = data2)
