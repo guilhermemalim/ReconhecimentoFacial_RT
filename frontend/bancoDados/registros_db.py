@@ -34,3 +34,22 @@ class Registro_DB:
         self.cursor.execute(sql_command)
         result = self.cursor.fetchall()
         return result
+    
+    def allRegister(self):
+        sql_command = "SELECT  * FROM registros;"
+        self.cursor.execute(sql_command)
+        result = self.cursor.fetchall()
+        return result
+        def allRegister_tablePrint(self,client_db):
+        result = self.allRegister()
+        all_history = self.allRegister()
+        all_clients = client_db.allClientsIdName()
+
+        aux = [[], []]
+        for x in all_clients:
+            aux[0].append(x[0])
+            aux[1].append(x[1])
+
+        data = [(aux[1][aux[0].index(y[1])], y[2].strftime("%d/%m/%Y"), y[2].strftime("%H:%M:%S"), y[3]) for y in all_history]
+        return data
+      
