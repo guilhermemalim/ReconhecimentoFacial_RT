@@ -3,6 +3,7 @@ import os
 import cv2
 import sys
 from PIL import Image, ImageTk
+from tkinter import ttk
 
 from abaRelatorio import *
 
@@ -45,14 +46,14 @@ def resume(event=0):
     btn_dir.place(bordermode=tk.INSIDE, relx=0.75, rely=0.9, anchor=tk.CENTER, width=300, height=50)
     lmain.after(10, show_frame)
 
-def gerar_relatorio(event=0):
-    global btn_esq, btn_dir, lmain, cancel
+def gerar_relatorio():
+    global btn_esq, btn_dir, lmain, cancel, mainWindow
 
     cancel = False
     btn_esq.place_forget()
     btn_dir.place_forget()
 
-    aba_relatorio()
+    novaJanela()
 
 cap = cv2.VideoCapture(0)
 capWidth = cap.get(3)
@@ -61,7 +62,7 @@ capHeight = cap.get(4)
 success, frame = cap.read()
 
 mainWindow = tk.Tk(screenName="Camera Capture")
-
+mainWindow.title('main')
 mainWindow.geometry('{}x{}'.format(900, 700))
 mainWindow.minsize(900, 700)
 mainWindow.maxsize(900, 700)
