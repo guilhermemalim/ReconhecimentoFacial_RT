@@ -29,7 +29,7 @@ class Registro_DB:
         result = self.cursor.fetchall()
         return result
 
-    def allDateClient(self, id_cliente):
+    def allRegisterClient(self, id_cliente):
         sql_command = "SELECT  * FROM registros WHERE id_cliente = '{name}' ;".format(name=id_cliente)
         self.cursor.execute(sql_command)
         result = self.cursor.fetchall()
@@ -53,3 +53,8 @@ class Registro_DB:
         data = [(aux[1][aux[0].index(y[1])], y[2].strftime("%d/%m/%Y"), y[2].strftime("%H:%M:%S"), y[3]) for y in all_history]
         return data
       
+    def allRegisterClient_tablePrint(self,id_client, name_client):
+        all_history = self.allRegisterClient()
+        data = [(name_client, y[2].strftime("%d/%m/%Y"), y[2].strftime("%H:%M:%S"), y[3]) for y in all_history]
+        return data
+
