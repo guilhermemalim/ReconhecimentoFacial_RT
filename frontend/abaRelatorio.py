@@ -13,9 +13,16 @@ from datetime import date
 # https://www.plus2net.com/python/tkinter-OptionMenu.php -> choose
 
 def novaJanela():
+
+    password = "root"
+    database = "project_rt"
+    db = BancoDados(host="localhost", user="root", password=password, database=database)
+    db.connect()
+    #client_db = Clientes_DB(db)
+    register_db = Registro_DB(db)
+    id_client = 1
     new_win = tk.Toplevel()
     new_win.title("Nova Janela")
-
 
 
     # Inicia o Treeview com as seguintes colunas:
@@ -36,6 +43,7 @@ def novaJanela():
         tree.heading(c, text=c.title())
 
     # Dados:
+    '''
     data = [
         ("Argentina",      "Buenos Aires",     "ARS"),
         ("Australia",      "Canberra",         "AUD"),
@@ -53,7 +61,11 @@ def novaJanela():
         ("United Kingdom", "London",           "GBP"),
         ("United States",  "Washington, D.C.", "USD"),
     ]
+    '''
 
+    data = register_db.allDateClient(id_client)
+
+    #
     # Insere cada item dos dados
     for item in data:
         tree.insert('', 'end', values=item)
