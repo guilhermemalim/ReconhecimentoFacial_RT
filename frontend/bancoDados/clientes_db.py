@@ -28,7 +28,7 @@ class Clientes_DB:
         result = self.cursor.fetchall()
         return result[0][4]
 
-     def allClientsIdName(self):
+    def allClientsIdName(self):
         sql_command = "SELECT id_clientes, nome_completo FROM clientes;"
         self.cursor.execute(sql_command)
         result = self.cursor.fetchall()

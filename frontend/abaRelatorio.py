@@ -14,7 +14,8 @@ from tkcalendar import DateEntry
 # https://www.plus2net.com/python/tkinter-OptionMenu.php -> choose
 
 tree = None
-treregister_dbe = None
+register_db = None
+client_db = None
 cal_inicial = None
 cal_final = None
 
@@ -50,7 +51,7 @@ def search_date():
     print(selected_date)
 
 def atualizar_table():
-    global tree, register_db
+    global tree, register_db, client_db
     data = [
         ("Argentina", "Buenos Aires", "ARS"),
         ("Australia", "Canberra", "AUD"),
@@ -69,13 +70,17 @@ def atualizar_table():
         ("United States", "Washington, D.C.", "USD"),
     ]
 
+    data = register_db.allRegister_tablePrint(client_db)
+
+    print(data)
+
     #
     # Insere cada item dos dados
     for item in data:
         tree.insert('', 'end', values=item)
 
-def create_table(center, register_db):
-    global tree
+def create_table(center):
+    global tree, register_db, client_db
     # Inicia o Treeview com as seguintes colunas:
     dataCols = ('NOME', 'DATA', 'HORA', 'PRIORIDADE')
     tree = ttk.Treeview(center, columns=dataCols, show='headings')
@@ -96,6 +101,7 @@ def create_table(center, register_db):
     atualizar_table()
 
 def novaJanela():
+    global register_db, client_db
     new_win = tk.Toplevel()
     new_win.title("Relatório")
 
@@ -103,9 +109,9 @@ def novaJanela():
     database = "project_rt"
     db = BancoDados(host="localhost", user="root", password=password, database=database)
     db.connect()
-    # client_db = Clientes_DB(db)
+    client_db = Clientes_DB(db)
     register_db = Registro_DB(db)
-    id_client = 1
+    id_client = 2
 
     # layout all of the main containers
     new_win.grid_rowconfigure(1, weight=1)
@@ -114,7 +120,7 @@ def novaJanela():
     #criar o frame central
     center = tk.Frame(new_win, width=50, height=40, padx=3, pady=3)
     center.grid(row=1, sticky="nsew")
-    create_table(center, register_db)
+    create_table(center)
 
     # criar o frame topo
     top_frame = tk.Frame(new_win, width=450, height=50, pady=3)
