@@ -50,28 +50,44 @@ def prompt_ok(event=0):
     button1.focus()
 
 def RegistrarFuncionrio(event=0):
-    global prevImg
+    global button1, button2, btn_esq, btn_dir, lmain, cancel
 
-    if (len(sys.argv) < 2):
-        filepath = "imageCap.png"
-    else:
-        filepath = sys.argv[1]
+    cancel = False
 
-    print("Output file to: " + filepath)
-    prevImg.save(filepath)
-    resume()
+    password = "root"
+    database = "project_rt"
+    db = BancoDados(host="localhost", user="root", password=password, database=database)
+    db.connect()
+    #print(db.connection)
+    client_db = Clientes_DB(db)
+    register_db = Registro_DB(db)
 
-    # password = "Projeto_Final_RT_2195"
-    # database = "project_rt"
-    # db = BancoDados(host="localhost", user="root", password=password, database=database)
-    # db.connect()
-    # print(db.connection)
-    # register_db = Registro_DB(db)
-    #
-    # date_now = datetime.now()
-    # new_register = Registro(id_client, date_now, "Entrada")
-    # register_db.insertRegister(new_register)
-    # print(register_db.lastRegister(id_client))
+    lista_funcionarios = client_db.allClientsName()
+    #print(lista_funcionarios)
+    id_client = 1
+    for nome in lista_funcionarios:
+        if name in nome:
+            tem_smith = True
+            break
+        id_client+=1
+
+    date_now = datetime.now()
+    new_register = Registro(id_client, date_now, "Entrada")
+    register_db.insertRegister(new_register)
+    #print(register_db.lastRegister(id_client))
+
+    button1.place_forget()
+    button2.place_forget()
+
+    mainWindow.bind('<Return>', prompt_ok)
+    btn_esq.place(bordermode=tk.INSIDE, relx=0.25, rely=0.9, anchor=tk.CENTER, width=300, height=50)
+    btn_dir.place(bordermode=tk.INSIDE, relx=0.75, rely=0.9, anchor=tk.CENTER, width=300, height=50)
+    lmain.after(10, show_frame)
+
+    new_win = tk.Toplevel()
+    new_win.title("Relatório")
+
+
 
 def resume(event=0):
     global button1, button2, btn_esq, btn_dir, lmain, cancel
