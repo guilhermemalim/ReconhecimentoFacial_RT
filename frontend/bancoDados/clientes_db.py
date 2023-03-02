@@ -33,3 +33,10 @@ class Clientes_DB:
         self.cursor.execute(sql_command)
         result = self.cursor.fetchall()
         return result
+
+    def allClientsName(self):
+        sql_command = "SELECT nome_completo FROM clientes;"
+        self.cursor.execute(sql_command)
+        result = self.cursor.fetchall()
+        result = [name[0] for name in result]
+        return result
