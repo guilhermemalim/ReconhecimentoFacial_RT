@@ -54,7 +54,7 @@ class Registro_DB:
         return data
       
     def allRegisterClient_tablePrint(self,id_client, name_client):
-        all_history = self.allRegisterClient()
+        all_history = self.allRegisterClient(id_client)
         data = [(name_client, y[2].strftime("%d/%m/%Y"), y[2].strftime("%H:%M:%S"), y[3]) for y in all_history]
         return data
 

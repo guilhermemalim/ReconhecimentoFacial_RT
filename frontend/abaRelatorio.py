@@ -20,6 +20,7 @@ cal_inicial = None
 cal_final = None
 var_check = None
 SelectItem = None
+lista_funcionarios = None
 
 # Função para imprimir o estado da caixa de seleção
 def check():
@@ -27,7 +28,7 @@ def check():
     return var_check.get()
 
 def create_navigation(top_frame):
-    global cal_inicial, cal_final, register_db, client_db, var_check, SelectItem
+    global cal_inicial, cal_final, register_db, client_db, var_check, SelectItem, lista_funcionarios
     SelectItem = tk.StringVar(top_frame)
     SelectItem.set(" ")  # default value
 
@@ -59,57 +60,53 @@ def create_navigation(top_frame):
 
 def search_date(data):
     selected_date = data.get()
-    print(selected_date)
+    selected_date = selected_date.split("/")
+    selected_date = selected_date[2]+"-"+selected_date[1]+"-"+selected_date[0]
+    #print(selected_date)
+    return selected_date
 
 def search_item():
     global  SelectItem
     selected_item = SelectItem.get()
-    print("Item selecionado:", selected_item)
+    #print("Item selecionado:", selected_item)
+    return selected_item
 
 def pesquisar_BD():
-    global var_check, cal_inicial, cal_final, SelectItem
+    global var_check, cal_inicial, cal_final, SelectItem, register_db, client_db, lista_funcionarios
 
     if ( check() ):
         #pesquisar nome e data
         print("nome e data")
-        search_date(cal_inicial)
-        search_date(cal_final)
-        search_item()
+        nome = search_item()
+        id = lista_funcionarios.index(nome) + 1
+        data_inicial = search_date(cal_inicial); data_inicial = data_inicial+" 00:00:00"
+        data_final = search_date(cal_final); data_final = data_final + " 23:59:59"
+        # print(data_inicial , data_final)
+
+        data = register_db.dateClient(data_inicial, data_final, id)
+        delete()
+        atualizar_table(data)
+
 
     else:
         # pesquisar so o nome
-        print("nome")
+        nome = search_item()
+        id = lista_funcionarios.index(nome) + 1
+        data = register_db.allRegisterClient_tablePrint(id, nome)
+        delete()
+        atualizar_table(data)
 
+def atualizar_table(data):
+    global tree
 
-def atualizar_table():
-    global tree, register_db, client_db
-    data = [
-        ("Argentina", "Buenos Aires", "ARS"),
-        ("Australia", "Canberra", "AUD"),
-        ("Brazil", "Brazilia", "BRL"),
-        ("Canada", "Ottawa", "CAD"),
-        ("China", "Beijing", "CNY"),
-        ("France", "Paris", "EUR"),
-        ("Germany", "Berlin", "EUR"),
-        ("India", "New Delhi", "INR"),
-        ("Italy", "Rome", "EUR"),
-        ("Japan", "Tokyo", "JPY"),
-        ("Mexico", "Mexico City", "MXN"),
-        ("Russia", "Moscow", "RUB"),
-        ("South Africa", "Pretoria", "ZAR"),
-        ("United Kingdom", "London", "GBP"),
-        ("United States", "Washington, D.C.", "USD"),
-    ]
-
-    data = register_db.allRegister_tablePrint(client_db)
-
-    print(data)
-
-    #
     # Insere cada item dos dados
     for item in data:
         tree.insert('', 'end', values=item)
 
+def delete():
+    global tree
+    for i in tree.get_children():
+        tree.delete(i)
 def create_table(center):
     global tree, register_db, client_db
     # Inicia o Treeview com as seguintes colunas:
@@ -129,7 +126,8 @@ def create_table(center):
     for c in dataCols:
         tree.heading(c, text=c.title())
 
-    atualizar_table()
+    data = register_db.allRegister_tablePrint(client_db)
+    atualizar_table(data)
 
 def novaJanela():
     global register_db, client_db
