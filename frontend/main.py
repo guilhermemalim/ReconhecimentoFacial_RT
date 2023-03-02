@@ -65,16 +65,12 @@ def RegistrarFuncionrio(event=0):
     lista_funcionarios = client_db.allClientsName()
     #print(lista_funcionarios)
     id_client = 1
+    tem_funcionario= False
     for nome in lista_funcionarios:
         if name in nome:
-            tem_smith = True
+            tem_funcionario = True
             break
         id_client+=1
-
-    date_now = datetime.now()
-    new_register = Registro(id_client, date_now, "Entrada")
-    register_db.insertRegister(new_register)
-    #print(register_db.lastRegister(id_client))
 
     button1.place_forget()
     button2.place_forget()
@@ -84,10 +80,35 @@ def RegistrarFuncionrio(event=0):
     btn_dir.place(bordermode=tk.INSIDE, relx=0.75, rely=0.9, anchor=tk.CENTER, width=300, height=50)
     lmain.after(10, show_frame)
 
-    new_win = tk.Toplevel()
-    new_win.title("Relatório")
+    if tem_funcionario :
+        print("true")
+        date_now = datetime.now()
+        new_register = Registro(id_client, date_now, "Entrada")
+        register_db.insertRegister(new_register)
+        print(register_db.lastRegister(id_client))
+        new_win = tk.Toplevel()
+        new_win.title("confirmação de registro")
+        new_win.geometry('{}x{}'.format(80, 80))
+        new_win.minsize(80, 80)
+        new_win.maxsize(80, 80)
+        model_label = tk.Label(new_win, text='Acesso liberado')
+        model_label.grid(row=0, column=0)
+        button_ok = tk.Button(new_win, text="OK", command=new_win.destroy)
+        button_ok.grid(row=1, column=0, pady=5, sticky=tk.E)
+        #new_win.after(1500, new_win.destroy())
 
-
+    else:
+        print("false")
+        new_win = tk.Toplevel()
+        new_win.title("confirmação de registro")
+        new_win.geometry('{}x{}'.format(80, 80))
+        new_win.minsize(80, 80)
+        new_win.maxsize(80, 80)
+        model_label = tk.Label(new_win, text='Acesso Negado')
+        model_label.grid(row=0, column=0)
+        button_ok = tk.Button(new_win, text="OK", command=new_win.destroy)
+        button_ok.grid(row=1, column=0, pady=5, sticky=tk.E)
+        #new_win.after(1500, new_win.destroy())
 
 def resume(event=0):
     global button1, button2, btn_esq, btn_dir, lmain, cancel
