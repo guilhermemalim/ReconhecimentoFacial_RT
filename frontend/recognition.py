@@ -45,8 +45,8 @@ marcos_face_encoding = face_recognition.face_encodings(marcos_image)[0]
 marcos1_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos1.jpg"))
 marcos1_face_encoding = face_recognition.face_encodings(marcos1_image)[0]
 
-marcos2_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos2.jpg"))
-marcos2_face_encoding = face_recognition.face_encodings(marcos2_image)[0]
+# marcos2_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos2.jpg"))
+# marcos2_face_encoding = face_recognition.face_encodings(marcos2_image)[0]
 
 marcos3_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos3.jpg"))
 marcos3_face_encoding = face_recognition.face_encodings(marcos3_image)[0]
@@ -108,7 +108,7 @@ rod1_face_encoding = face_recognition.face_encodings(rod1_image)[0]
 known_face_encodings = [
     guilherme_face_encoding, guilherme1_face_encoding, guilherme2_face_encoding, guilherme3_face_encoding,
     luiza_face_encoding, luiza1_face_encoding,
-    marcos_face_encoding, marcos1_face_encoding, marcos2_face_encoding, marcos3_face_encoding,
+    marcos_face_encoding, marcos1_face_encoding, marcos3_face_encoding, #marcos2_face_encoding
     oda_face_encoding, oda1_face_encoding, oda2_face_encoding, oda3_face_encoding, oda4_face_encoding,
     smith_face_encoding, smith1_face_encoding, smith2_face_encoding, smith3_face_encoding, smith4_face_encoding,
     vini_face_encoding, vini1_face_encoding,
@@ -184,6 +184,4 @@ def recognize(frame):
         font = cv2.FONT_HERSHEY_DUPLEX
         cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
 
-# Release handle to the webcam
-video_capture.release()
-cv2.destroyAllWindows()
+    return frame

@@ -28,7 +28,9 @@ def create_navigation(top_frame):
     label_funcionario = tk.Label(top_frame, text='Selec. o funcionário', width=20)
     label_funcionario.grid(row=0, column=0)
 
-    options = tk.OptionMenu(top_frame, SelectItem, "HTML", "PHP", "MySQL", "Python")
+    lista_funcionarios = ["HTML", "PHP", "MySQL", "Python"]
+
+    options = tk.OptionMenu(top_frame, SelectItem, *lista_funcionarios)
     options.grid(row=0, column=1)
 
     label_data_inicial = tk.Label(top_frame, text='Selec. data inicial', width=15)
