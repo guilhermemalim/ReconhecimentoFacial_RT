@@ -29,7 +29,9 @@ class Registro_DB:
         result = self.cursor.fetchall()
         return result
     def dateClient_tablePrint(self, data1, data2, id_client, name_client):
-        all_history = self.dateClient()
+        sql_command = "SELECT  *FROM registros WHERE id_cliente = '{name}' AND data>='{data1}' AND data<='{data2}';".format(name=id_client, data1=data1, data2=data2)
+        self.cursor.execute(sql_command)
+        all_history = self.cursor.fetchall()
         data = [(name_client, y[2].strftime("%d/%m/%Y"), y[2].strftime("%H:%M:%S"), y[3]) for y in all_history]
         return data
     def allRegisterClient(self, id_cliente):
