@@ -8,21 +8,49 @@ from bancoDados.registro import Registro
 from bancoDados.registros_db import Registro_DB
 from datetime import datetime
 from datetime import date
+from tkcalendar import DateEntry
 
 # https://pt.stackoverflow.com/questions/23053/ajuda-tables-python27 -> table
 # https://www.plus2net.com/python/tkinter-OptionMenu.php -> choose
 
+tree = None
+treregister_dbe = None
+cal_inicial = None
+cal_final = None
+
+
 def create_navigation(top_frame):
-    options = tk.StringVar(top_frame)
-    options.set(" ")  # default value
+    global cal_inicial, cal_final
+    SelectItem = tk.StringVar(top_frame)
+    SelectItem.set(" ")  # default value
 
-    l3 = tk.Label(top_frame, text='Selecione o funcionário', width=35)
-    l3.grid(row=0, column=1)
+    label_funcionario = tk.Label(top_frame, text='Selec. o funcionário', width=20)
+    label_funcionario.grid(row=0, column=0)
 
-    om1 = tk.OptionMenu(top_frame, options, "HTML", "PHP", "MySQL", "Python")
-    om1.grid(row=0, column=2)
+    options = tk.OptionMenu(top_frame, SelectItem, "HTML", "PHP", "MySQL", "Python")
+    options.grid(row=0, column=1)
 
-def atualizar_table(tree, register_db):
+    label_data_inicial = tk.Label(top_frame, text='Selec. data inicial', width=15)
+    label_data_inicial.grid(row=0, column=2)
+
+    cal_inicial = DateEntry(top_frame, selectmode='day', date_pattern='dd/mm/yyyy')
+    cal_inicial.grid(row=0, column=3, padx=15)
+
+    label_data_final = tk.Label(top_frame, text='Selec. data inicial', width=15)
+    label_data_final.grid(row=0, column=4)
+
+    cal_final = DateEntry(top_frame, selectmode='day', date_pattern='dd/mm/yyyy')
+    cal_final.grid(row=0, column=5, padx=15)
+
+    search_button = ttk.Button(top_frame, text="Pesquisar", command=search_date)
+    search_button.grid(row=0, column=6, padx=15)
+
+def search_date():
+    selected_date = cal_inicial.get()
+    print(selected_date)
+
+def atualizar_table():
+    global tree, register_db
     data = [
         ("Argentina", "Buenos Aires", "ARS"),
         ("Australia", "Canberra", "AUD"),
@@ -47,7 +75,7 @@ def atualizar_table(tree, register_db):
         tree.insert('', 'end', values=item)
 
 def create_table(center, register_db):
-
+    global tree
     # Inicia o Treeview com as seguintes colunas:
     dataCols = ('NOME', 'DATA', 'HORA', 'PRIORIDADE')
     tree = ttk.Treeview(center, columns=dataCols, show='headings')
@@ -65,11 +93,11 @@ def create_table(center, register_db):
     for c in dataCols:
         tree.heading(c, text=c.title())
 
-    atualizar_table(tree, register_db)
+    atualizar_table()
 
 def novaJanela():
     new_win = tk.Toplevel()
-    new_win.title("Nova Janela")
+    new_win.title("Relatório")
 
     password = "root"
     database = "project_rt"
@@ -83,14 +111,12 @@ def novaJanela():
     new_win.grid_rowconfigure(1, weight=1)
     new_win.grid_columnconfigure(0, weight=1)
 
-    top_frame = tk.Frame(new_win, width=450, height=50, pady=3)
-    top_frame.grid(row=0, sticky="ew")
-
-    create_navigation(top_frame)
-
+    #criar o frame central
     center = tk.Frame(new_win, width=50, height=40, padx=3, pady=3)
     center.grid(row=1, sticky="nsew")
     create_table(center, register_db)
 
-    button_ok = tk.Button(new_win, text="OK", command=new_win.destroy)
-    button_ok.grid(row=2, column=0, pady=5, sticky=tk.E)
+    # criar o frame topo
+    top_frame = tk.Frame(new_win, width=450, height=50, pady=3)
+    top_frame.grid(row=0, sticky="ew")
+    create_navigation(top_frame)
