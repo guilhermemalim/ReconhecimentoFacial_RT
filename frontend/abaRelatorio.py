@@ -12,8 +12,6 @@ from datetime import date
 # https://pt.stackoverflow.com/questions/23053/ajuda-tables-python27 -> table
 # https://www.plus2net.com/python/tkinter-OptionMenu.php -> choose
 
-def novaJanela():
-
     password = "root"
     database = "project_rt"
     db = BancoDados(host="localhost", user="root", password=password, database=database)
@@ -23,8 +21,6 @@ def novaJanela():
     id_client = 1
     new_win = tk.Toplevel()
     new_win.title("Nova Janela")
-
-
     # Inicia o Treeview com as seguintes colunas:
     dataCols = ('country', 'capital', 'currency')
     tree = ttk.Treeview(new_win, columns=dataCols, show='headings')
@@ -45,21 +41,21 @@ def novaJanela():
     # Dados:
     '''
     data = [
-        ("Argentina",      "Buenos Aires",     "ARS"),
-        ("Australia",      "Canberra",         "AUD"),
-        ("Brazil",         "Brazilia",         "BRL"),
-        ("Canada",         "Ottawa",           "CAD"),
-        ("China",          "Beijing",          "CNY"),
-        ("France",         "Paris",            "EUR"),
-        ("Germany",        "Berlin",           "EUR"),
-        ("India",          "New Delhi",        "INR"),
-        ("Italy",          "Rome",             "EUR"),
-        ("Japan",          "Tokyo",            "JPY"),
-        ("Mexico",         "Mexico City",      "MXN"),
-        ("Russia",         "Moscow",           "RUB"),
-        ("South Africa",   "Pretoria",         "ZAR"),
-        ("United Kingdom", "London",           "GBP"),
-        ("United States",  "Washington, D.C.", "USD"),
+        ("Argentina", "Buenos Aires", "ARS"),
+        ("Australia", "Canberra", "AUD"),
+        ("Brazil", "Brazilia", "BRL"),
+        ("Canada", "Ottawa", "CAD"),
+        ("China", "Beijing", "CNY"),
+        ("France", "Paris", "EUR"),
+        ("Germany", "Berlin", "EUR"),
+        ("India", "New Delhi", "INR"),
+        ("Italy", "Rome", "EUR"),
+        ("Japan", "Tokyo", "JPY"),
+        ("Mexico", "Mexico City", "MXN"),
+        ("Russia", "Moscow", "RUB"),
+        ("South Africa", "Pretoria", "ZAR"),
+        ("United Kingdom", "London", "GBP"),
+        ("United States", "Washington, D.C.", "USD"),
     ]
     '''
 
@@ -69,9 +65,29 @@ def novaJanela():
     # Insere cada item dos dados
     for item in data:
         tree.insert('', 'end', values=item)
+def novaJanela():
+    new_win = tk.Toplevel()
+    new_win.title("Nova Janela")
+
+    # layout all of the main containers
+    new_win.grid_rowconfigure(1, weight=1)
+    new_win.grid_columnconfigure(0, weight=1)
+
+    top_frame = tk.Frame(new_win, bg='cyan', width=450, height=50, pady=3)
+    top_frame.grid(row=0, sticky="ew")
+
+    options = tk.StringVar(top_frame)
+    options.set("One")  # default value
+
+    l3 = tk.Label(top_frame, text='Select One', width=15)
+    l3.grid(row=5, column=1)
+
+    om1 = tk.OptionMenu(top_frame, options, "HTML", "PHP", "MySQL", "Python")
+    om1.grid(row=5, column=2)
+
+    center = tk.Frame(new_win, bg='gray2', width=50, height=40, padx=3, pady=3)
+    center.grid(row=1, sticky="nsew")
+    create_table(center)
 
     button_ok = tk.Button(new_win, text="OK", command=new_win.destroy)
-    button_ok.grid(row=1, column=0, pady=5, sticky=tk.E)
-
-
-novaJanela()
+    button_ok.grid(row=2, column=0, pady=5, sticky=tk.E)

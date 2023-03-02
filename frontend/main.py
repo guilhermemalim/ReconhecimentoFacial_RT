@@ -47,11 +47,6 @@ def resume(event=0):
     lmain.after(10, show_frame)
 
 def gerar_relatorio():
-    global btn_esq, btn_dir, lmain, cancel, mainWindow
-
-    cancel = False
-    btn_esq.place_forget()
-    btn_dir.place_forget()
 
     novaJanela()
 
