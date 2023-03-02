@@ -12,6 +12,17 @@ from datetime import date
 # https://pt.stackoverflow.com/questions/23053/ajuda-tables-python27 -> table
 # https://www.plus2net.com/python/tkinter-OptionMenu.php -> choose
 
+def create_navigation(top_frame):
+    options = tk.StringVar(top_frame)
+    options.set(" ")  # default value
+
+    l3 = tk.Label(top_frame, text='Selecione o funcionário', width=35)
+    l3.grid(row=0, column=1)
+
+    om1 = tk.OptionMenu(top_frame, options, "HTML", "PHP", "MySQL", "Python")
+    om1.grid(row=0, column=2)
+
+def create_table(center):
     password = "root"
     database = "project_rt"
     db = BancoDados(host="localhost", user="root", password=password, database=database)
@@ -19,16 +30,16 @@ from datetime import date
     #client_db = Clientes_DB(db)
     register_db = Registro_DB(db)
     id_client = 1
-    new_win = tk.Toplevel()
-    new_win.title("Nova Janela")
+
+
     # Inicia o Treeview com as seguintes colunas:
-    dataCols = ('country', 'capital', 'currency')
-    tree = ttk.Treeview(new_win, columns=dataCols, show='headings')
+    dataCols = ('NOME', 'DATA', 'HORA', 'PRIORIDADE')
+    tree = ttk.Treeview(center, columns=dataCols, show='headings')
     tree.grid(row=0, column=0, sticky=tk.N + tk.S + tk.W + tk.E)
 
     # Barras de rolagem
-    ysb = ttk.Scrollbar(new_win, orient=tk.VERTICAL, command=tree.yview)
-    xsb = ttk.Scrollbar(new_win, orient=tk.HORIZONTAL, command=tree.xview)
+    ysb = ttk.Scrollbar(center, orient=tk.VERTICAL, command=tree.yview)
+    xsb = ttk.Scrollbar(center, orient=tk.HORIZONTAL, command=tree.xview)
     tree['yscroll'] = ysb.set
     tree['xscroll'] = xsb.set
     ysb.grid(row=0, column=1, sticky=tk.N + tk.S)
@@ -39,7 +50,6 @@ from datetime import date
         tree.heading(c, text=c.title())
 
     # Dados:
-    '''
     data = [
         ("Argentina", "Buenos Aires", "ARS"),
         ("Australia", "Canberra", "AUD"),
@@ -57,9 +67,9 @@ from datetime import date
         ("United Kingdom", "London", "GBP"),
         ("United States", "Washington, D.C.", "USD"),
     ]
-    '''
 
-    data = register_db.allDateClient(id_client)
+    data2 = register_db.allDateClient(id_client)
+    print(data2)
 
     #
     # Insere cada item dos dados
@@ -73,19 +83,12 @@ def novaJanela():
     new_win.grid_rowconfigure(1, weight=1)
     new_win.grid_columnconfigure(0, weight=1)
 
-    top_frame = tk.Frame(new_win, bg='cyan', width=450, height=50, pady=3)
+    top_frame = tk.Frame(new_win, width=450, height=50, pady=3)
     top_frame.grid(row=0, sticky="ew")
 
-    options = tk.StringVar(top_frame)
-    options.set("One")  # default value
+    create_navigation(top_frame)
 
-    l3 = tk.Label(top_frame, text='Select One', width=15)
-    l3.grid(row=5, column=1)
-
-    om1 = tk.OptionMenu(top_frame, options, "HTML", "PHP", "MySQL", "Python")
-    om1.grid(row=5, column=2)
-
-    center = tk.Frame(new_win, bg='gray2', width=50, height=40, padx=3, pady=3)
+    center = tk.Frame(new_win, width=50, height=40, padx=3, pady=3)
     center.grid(row=1, sticky="nsew")
     create_table(center)
 
