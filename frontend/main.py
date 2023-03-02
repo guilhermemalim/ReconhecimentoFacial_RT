@@ -25,16 +25,16 @@ cancel = False
 name = None
 process_this_frame = False
 cap =None
+lmain=None
 
 #https://webninjadeveloper.com/python/python-3-opencv-tkinter-project-to-capture-webcam-save-it-as-png-image-file-using-pillow-library-gui-desktop-app/
 
 def prompt_ok(event=0):
-    global cancel, btn_esq, btn_dir , button1, button2, name, cap
+    global cancel, btn_esq, btn_dir , button1, button2, name, cap, lmain
     cancel = True
-    process_this_frame = True
 
     _, frame = cap.read()
-    frame, name = recognize(frame, process_this_frame)
+    frame, name = recognize(frame, process_this_frame=True)
     cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
 
     prevImg = Image.fromarray(cv2image)
@@ -153,10 +153,10 @@ btn_dir.place(bordermode=tk.INSIDE, relx=0.75, rely=0.9, anchor=tk.CENTER, width
 #button.focus()
 
 def show_frame():
-    global cancel, prevImg, btn_esq, btn_dir, name
+    global cancel, prevImg, btn_esq, btn_dir, name, cap, lmain
 
     _, frame = cap.read()
-    frame, name = recognize(frame, process_this_frame=True)
+    #frame, name = recognize(frame, process_this_frame=True)
     cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
 
     prevImg = Image.fromarray(cv2image)

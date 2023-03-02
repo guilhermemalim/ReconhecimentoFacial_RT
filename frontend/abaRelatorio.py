@@ -91,6 +91,7 @@ def pesquisar_BD():
     else:
         # pesquisar so o nome
         nome = search_item()
+        print(nome)
         id = lista_funcionarios.index(nome) + 1
         data = register_db.allRegisterClient_tablePrint(id, nome)
         delete()
@@ -107,6 +108,7 @@ def delete():
     global tree
     for i in tree.get_children():
         tree.delete(i)
+
 def create_table(center):
     global tree, register_db, client_db
     # Inicia o Treeview com as seguintes colunas:
@@ -129,8 +131,6 @@ def create_table(center):
     data = register_db.allRegister_tablePrint(client_db)
     atualizar_table(data)
 
-
-
 def novaJanela():
     global register_db, client_db
     new_win = tk.Toplevel()
@@ -145,9 +145,6 @@ def novaJanela():
 
     register_db = Registro_DB(db)
     register_db.createTableRegistro()
-
-
-
 
     # layout all of the main containers
     new_win.grid_rowconfigure(1, weight=1)
