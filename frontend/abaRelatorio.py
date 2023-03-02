@@ -83,7 +83,7 @@ def pesquisar_BD():
         data_final = search_date(cal_final); data_final = data_final + " 23:59:59"
         # print(data_inicial , data_final)
 
-        data = register_db.dateClient(data_inicial, data_final, id)
+        data = register_db.dateClient_tablePrint(data_inicial, data_final, id, nome)
         delete()
         atualizar_table(data)
 
@@ -140,7 +140,7 @@ def novaJanela():
     db.connect()
     client_db = Clientes_DB(db)
     register_db = Registro_DB(db)
-    id_client = 2
+    id_client = 1
 
     # layout all of the main containers
     new_win.grid_rowconfigure(1, weight=1)

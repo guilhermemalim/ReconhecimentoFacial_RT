@@ -45,8 +45,8 @@ marcos_face_encoding = face_recognition.face_encodings(marcos_image)[0]
 marcos1_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos1.jpg"))
 marcos1_face_encoding = face_recognition.face_encodings(marcos1_image)[0]
 
-# marcos2_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos2.jpg"))
-# marcos2_face_encoding = face_recognition.face_encodings(marcos2_image)[0]
+marcos2_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos2.jpg"))
+marcos2_face_encoding = face_recognition.face_encodings(marcos2_image)[0]
 
 #################### Odalisio ###################
 
@@ -126,10 +126,9 @@ known_face_names = [
 face_locations = []
 face_encodings = []
 face_names = []
-process_this_frame = True
-
-def recognize(frame):
-
+name = None
+def recognize(frame, process_this_frame):
+    global name
     # Only process every other frame of video to save time
     if process_this_frame:
         # # Resize frame of video to 1/4 size for faster face recognition processing
@@ -166,20 +165,20 @@ def recognize(frame):
 
             face_names.append(name)
 
-    # Display the results
-    for (top, right, bottom, left), name in zip(face_locations, face_names):
-        # Scale back up face locations since the frame we detected in was scaled to 1/4 size
-        # top *= 4
-        # right *= 4
-        # bottom *= 4
-        # left *= 4
+        # Display the results
+        for (top, right, bottom, left), name in zip(face_locations, face_names):
+            # Scale back up face locations since the frame we detected in was scaled to 1/4 size
+            # top *= 4
+            # right *= 4
+            # bottom *= 4
+            # left *= 4
 
-        # Draw a box around the face
-        cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
+            # Draw a box around the face
+            cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
 
-        # Draw a label with a name below the face
-        cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
-        font = cv2.FONT_HERSHEY_DUPLEX
-        cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+            # Draw a label with a name below the face
+            cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
+            font = cv2.FONT_HERSHEY_DUPLEX
+            cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
 
-    return frame
+    return frame, name
