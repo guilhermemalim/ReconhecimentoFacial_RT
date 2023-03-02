@@ -40,7 +40,7 @@ class Registro_DB:
         self.cursor.execute(sql_command)
         result = self.cursor.fetchall()
         return result
-        def allRegister_tablePrint(self,client_db):
+    def allRegister_tablePrint(self,client_db):
         result = self.allRegister()
         all_history = self.allRegister()
         all_clients = client_db.allClientsIdName()
