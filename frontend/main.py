@@ -77,7 +77,7 @@ def show_frame():
     global cancel, prevImg, btn_esq, btn_dir
 
     _, frame = cap.read()
-    frame = recognize(frame)
+    #frame = recognize(frame)
     cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
 
     prevImg = Image.fromarray(cv2image)

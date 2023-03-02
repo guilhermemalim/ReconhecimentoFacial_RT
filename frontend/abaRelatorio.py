@@ -21,14 +21,14 @@ cal_final = None
 
 
 def create_navigation(top_frame):
-    global cal_inicial, cal_final
+    global cal_inicial, cal_final, register_db, client_db
     SelectItem = tk.StringVar(top_frame)
     SelectItem.set(" ")  # default value
 
     label_funcionario = tk.Label(top_frame, text='Selec. o funcionário', width=20)
     label_funcionario.grid(row=0, column=0)
 
-    lista_funcionarios = ["HTML", "PHP", "MySQL", "Python"]
+    lista_funcionarios = client_db.allClientsName()
 
     options = tk.OptionMenu(top_frame, SelectItem, *lista_funcionarios)
     options.grid(row=0, column=1)
