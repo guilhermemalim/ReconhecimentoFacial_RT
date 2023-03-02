@@ -129,18 +129,25 @@ def create_table(center):
     data = register_db.allRegister_tablePrint(client_db)
     atualizar_table(data)
 
+
+
 def novaJanela():
     global register_db, client_db
     new_win = tk.Toplevel()
     new_win.title("Relatório")
 
-    password = "root"
+    password = "senha"
     database = "project_rt"
     db = BancoDados(host="localhost", user="root", password=password, database=database)
     db.connect()
     client_db = Clientes_DB(db)
+    # client_db.createTableClients()
+
     register_db = Registro_DB(db)
-    id_client = 1
+    register_db.createTableRegistro()
+
+
+
 
     # layout all of the main containers
     new_win.grid_rowconfigure(1, weight=1)

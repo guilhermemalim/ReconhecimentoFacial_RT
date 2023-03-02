@@ -63,3 +63,16 @@ class Registro_DB:
         data = [(name_client, y[2].strftime("%d/%m/%Y"), y[2].strftime("%H:%M:%S"), y[3]) for y in all_history]
         return data
 
+    def createTableRegistro(self):
+        sql_command = '''
+        CREATE TABLE IF NOT EXISTS project_rt.registros (
+          id_registro INT NOT NULL AUTO_INCREMENT,
+          id_cliente INT NULL,
+          data DATETIME NULL,
+          tipo_registro VARCHAR(15) NULL,
+          PRIMARY KEY (id_registro)
+          );
+      '''
+        self.cursor.execute(sql_command)
+
+

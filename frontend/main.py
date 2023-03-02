@@ -6,8 +6,18 @@ from PIL import Image, ImageTk
 from tkinter import ttk
 from datetime import datetime
 from datetime import date
+from bancoDados.clientes_db import  *
 from abaRelatorio import *
 from recognition import *
+
+password = "senha"
+database = "project_rt"
+db = BancoDados(host="localhost", user="root", password=password, database=database)
+db.connect()
+client_db = Clientes_DB(db)
+
+
+client_db.createTableClients()
 
 cancel = False
 name = None
@@ -105,6 +115,7 @@ def show_frame():
     global cancel, prevImg, btn_esq, btn_dir, name
 
     _, frame = cap.read()
+    frame, name = recognize(frame, process_this_frame=True)
     cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
 
     prevImg = Image.fromarray(cv2image)
