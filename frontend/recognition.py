@@ -13,47 +13,115 @@ import numpy as np
 # specific demo. If you have trouble installing it, try any of the other demos that don't require it instead.
 
 # Get a reference to webcam #0 (the default one)
-video_capture = cv2.VideoCapture(0)
-
 base_dir = './imgs/'
 
-guilherme_image = face_recognition.load_image_file(os.path.join(base_dir, "gui.jpeg"))
+#################### Guilherme ###################
+
+guilherme_image = face_recognition.load_image_file(os.path.join(base_dir, "gui.jpg"))
 guilherme_face_encoding = face_recognition.face_encodings(guilherme_image)[0]
 
-luiza_image = face_recognition.load_image_file(os.path.join(base_dir, "luiza.jpeg"))
+guilherme1_image = face_recognition.load_image_file(os.path.join(base_dir, "gui1.jpg"))
+guilherme1_face_encoding = face_recognition.face_encodings(guilherme1_image)[0]
+
+guilherme2_image = face_recognition.load_image_file(os.path.join(base_dir, "gui2.jpg"))
+guilherme2_face_encoding = face_recognition.face_encodings(guilherme2_image)[0]
+
+guilherme3_image = face_recognition.load_image_file(os.path.join(base_dir, "gui3.jpg"))
+guilherme3_face_encoding = face_recognition.face_encodings(guilherme3_image)[0]
+
+#################### Luiza ###################
+
+luiza_image = face_recognition.load_image_file(os.path.join(base_dir, "luiza.jpg"))
 luiza_face_encoding = face_recognition.face_encodings(luiza_image)[0]
 
-marcos_image = face_recognition.load_image_file(os.path.join(base_dir, "neto.jpeg"))
+luiza1_image = face_recognition.load_image_file(os.path.join(base_dir, "luiza1.jpg"))
+luiza1_face_encoding = face_recognition.face_encodings(luiza_image)[0]
+
+#################### Marcos ###################
+
+marcos_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos.jpg"))
 marcos_face_encoding = face_recognition.face_encodings(marcos_image)[0]
 
-oda_image = face_recognition.load_image_file(os.path.join(base_dir, "oda.jpeg"))
+marcos1_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos1.jpg"))
+marcos1_face_encoding = face_recognition.face_encodings(marcos1_image)[0]
+
+marcos2_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos2.jpg"))
+marcos2_face_encoding = face_recognition.face_encodings(marcos2_image)[0]
+
+marcos3_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos3.jpg"))
+marcos3_face_encoding = face_recognition.face_encodings(marcos3_image)[0]
+
+#################### Odalisio ###################
+
+oda_image = face_recognition.load_image_file(os.path.join(base_dir, "oda.jpg"))
 oda_face_encoding = face_recognition.face_encodings(oda_image)[0]
 
-smith_image = face_recognition.load_image_file(os.path.join(base_dir, "smith.jpeg"))
+oda1_image = face_recognition.load_image_file(os.path.join(base_dir, "oda1.jpg"))
+oda1_face_encoding = face_recognition.face_encodings(oda1_image)[0]
+
+oda2_image = face_recognition.load_image_file(os.path.join(base_dir, "oda2.jpg"))
+oda2_face_encoding = face_recognition.face_encodings(oda2_image)[0]
+
+oda3_image = face_recognition.load_image_file(os.path.join(base_dir, "oda3.jpg"))
+oda3_face_encoding = face_recognition.face_encodings(oda3_image)[0]
+
+oda4_image = face_recognition.load_image_file(os.path.join(base_dir, "oda4.jpg"))
+oda4_face_encoding = face_recognition.face_encodings(oda4_image)[0]
+
+
+#################### Smith ###################
+
+smith_image = face_recognition.load_image_file(os.path.join(base_dir, "smith.jpg"))
 smith_face_encoding = face_recognition.face_encodings(smith_image)[0]
+
+smith1_image = face_recognition.load_image_file(os.path.join(base_dir, "smith1.jpg"))
+smith1_face_encoding = face_recognition.face_encodings(smith1_image)[0]
+
+smith2_image = face_recognition.load_image_file(os.path.join(base_dir, "smith2.jpg"))
+smith2_face_encoding = face_recognition.face_encodings(smith2_image)[0]
+
+smith3_image = face_recognition.load_image_file(os.path.join(base_dir, "smith3.jpg"))
+smith3_face_encoding = face_recognition.face_encodings(smith3_image)[0]
+
+smith4_image = face_recognition.load_image_file(os.path.join(base_dir, "smith4.jpg"))
+smith4_face_encoding = face_recognition.face_encodings(smith4_image)[0]
+
+#################### Vini ###################
 
 vini_image = face_recognition.load_image_file(os.path.join(base_dir, "vini.jpg"))
 vini_face_encoding = face_recognition.face_encodings(vini_image)[0]
 
-# # Load a second sample picture and learn how to recognize it.
+vini1_image = face_recognition.load_image_file(os.path.join(base_dir, "vini1.jpg"))
+vini1_face_encoding = face_recognition.face_encodings(vini1_image)[0]
+
+#################### Thiago Rodrigo ###################
+
+rod_image = face_recognition.load_image_file(os.path.join(base_dir, "rod.jpg"))
+rod_face_encoding = face_recognition.face_encodings(rod_image)[0]
+
+rod1_image = face_recognition.load_image_file(os.path.join(base_dir, "rod1.jpg"))
+rod1_face_encoding = face_recognition.face_encodings(rod1_image)[0]
+
+#################################################
 
 # Create arrays of known face encodings and their names
 known_face_encodings = [
-    guilherme_face_encoding,
-    luiza_face_encoding,
-    marcos_face_encoding,
-    oda_face_encoding,
-    smith_face_encoding,
-    vini_face_encoding
+    guilherme_face_encoding, guilherme1_face_encoding, guilherme2_face_encoding, guilherme3_face_encoding,
+    luiza_face_encoding, luiza1_face_encoding,
+    marcos_face_encoding, marcos1_face_encoding, marcos2_face_encoding, marcos3_face_encoding,
+    oda_face_encoding, oda1_face_encoding, oda2_face_encoding, oda3_face_encoding, oda4_face_encoding,
+    smith_face_encoding, smith1_face_encoding, smith2_face_encoding, smith3_face_encoding, smith4_face_encoding,
+    vini_face_encoding, vini1_face_encoding,
 ]
 
 known_face_names = [
-    "Guilherme",
-    "Luiza",
+    "Guilherme", "Guilherme", "Guilherme", "Guilherme",
+    "Luiza", "Luiza",
     "Marcos",
-    "Odalisio",
-    "Smith",
-    "Vini"
+    "Odalisio", "Odalisio", "Odalisio", "Odalisio", "Odalisio",
+    "Smith", "Smith", "Smith", "Smith", "Smith",
+    "Vini", "Vini",
+    "Thiago Rodrigo", "Thiago Rodrigo",
 ]
 
 # Initialize some variables
@@ -62,7 +130,7 @@ face_encodings = []
 face_names = []
 process_this_frame = True
 
-def reco(frame):
+def recognize(frame):
 
     # Only process every other frame of video to save time
     if process_this_frame:
