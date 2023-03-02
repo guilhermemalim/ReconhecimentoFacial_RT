@@ -28,3 +28,9 @@ class Registro_DB:
         self.cursor.execute(sql_command)
         result = self.cursor.fetchall()
         return result
+
+    def allDateClient(self, id_cliente):
+        sql_command = "SELECT  * FROM registros WHERE id_cliente = '{name}' ;".format(name=id_cliente)
+        self.cursor.execute(sql_command)
+        result = self.cursor.fetchall()
+        return result
