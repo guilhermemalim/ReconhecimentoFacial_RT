@@ -35,7 +35,7 @@ luiza_image = face_recognition.load_image_file(os.path.join(base_dir, "luiza.jpg
 luiza_face_encoding = face_recognition.face_encodings(luiza_image)[0]
 
 luiza1_image = face_recognition.load_image_file(os.path.join(base_dir, "luiza1.jpg"))
-luiza1_face_encoding = face_recognition.face_encodings(luiza_image)[0]
+luiza1_face_encoding = face_recognition.face_encodings(luiza1_image)[0]
 
 #################### Marcos ###################
 
@@ -47,9 +47,6 @@ marcos1_face_encoding = face_recognition.face_encodings(marcos1_image)[0]
 
 marcos2_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos2.jpg"))
 marcos2_face_encoding = face_recognition.face_encodings(marcos2_image)[0]
-
-marcos3_image = face_recognition.load_image_file(os.path.join(base_dir, "marcos3.jpg"))
-marcos3_face_encoding = face_recognition.face_encodings(marcos3_image)[0]
 
 #################### Odalisio ###################
 
@@ -108,7 +105,7 @@ rod1_face_encoding = face_recognition.face_encodings(rod1_image)[0]
 known_face_encodings = [
     guilherme_face_encoding, guilherme1_face_encoding, guilherme2_face_encoding, guilherme3_face_encoding,
     luiza_face_encoding, luiza1_face_encoding,
-    marcos_face_encoding, marcos1_face_encoding,  marcos2_face_encoding, marcos3_face_encoding,
+    marcos_face_encoding, marcos1_face_encoding,  marcos2_face_encoding,
     oda_face_encoding, oda1_face_encoding, oda2_face_encoding, oda3_face_encoding, oda4_face_encoding,
     smith_face_encoding, smith1_face_encoding, smith2_face_encoding, smith3_face_encoding, smith4_face_encoding,
     vini_face_encoding, vini1_face_encoding,
@@ -118,7 +115,7 @@ known_face_encodings = [
 known_face_names = [
     "Guilherme", "Guilherme", "Guilherme", "Guilherme",
     "Luiza", "Luiza",
-    "Marcos", "Marcos", "Marcos", "Marcos",
+    "Marcos", "Marcos", "Marcos",
     "Odalisio", "Odalisio", "Odalisio", "Odalisio", "Odalisio",
     "Smith", "Smith", "Smith", "Smith", "Smith",
     "Vini", "Vini",
