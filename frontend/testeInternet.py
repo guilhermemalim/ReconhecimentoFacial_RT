@@ -4,6 +4,8 @@ import cv2
 import sys
 from PIL import Image, ImageTk
 
+from abaRelatorio import *
+
 cancel = False
 
 def prompt_ok(event=0):
@@ -31,7 +33,7 @@ def saveAndExit(event=0):
     resume()
 
 def resume(event=0):
-    global button1, button2, button, lmain, cancel
+    global button1, button2, btn_esq, btn_dir, lmain, cancel
 
     cancel = False
 
@@ -44,17 +46,13 @@ def resume(event=0):
     lmain.after(10, show_frame)
 
 def gerar_relatorio(event=0):
-    global button1, button2, button, lmain, cancel
+    global btn_esq, btn_dir, lmain, cancel
 
     cancel = False
+    btn_esq.place_forget()
+    btn_dir.place_forget()
 
-    button1.place_forget()
-    button2.place_forget()
-
-    mainWindow.bind('<Return>', prompt_ok)
-    btn_esq.place(bordermode=tk.INSIDE, relx=0.25, rely=0.9, anchor=tk.CENTER, width=300, height=50)
-    btn_dir.place(bordermode=tk.INSIDE, relx=0.75, rely=0.9, anchor=tk.CENTER, width=300, height=50)
-    lmain.after(10, show_frame)
+    aba_relatorio()
 
 cap = cv2.VideoCapture(0)
 capWidth = cap.get(3)
@@ -63,17 +61,20 @@ capHeight = cap.get(4)
 success, frame = cap.read()
 
 mainWindow = tk.Tk(screenName="Camera Capture")
-mainWindow.resizable(width=False, height=False)
+
+mainWindow.geometry('{}x{}'.format(900, 700))
+mainWindow.minsize(900, 700)
+mainWindow.maxsize(900, 700)
+
 mainWindow.bind('<Escape>', lambda e: mainWindow.quit())
-lmain = tk.Label(mainWindow, compound=tk.CENTER, anchor=tk.CENTER, relief=tk.RAISED)
+lmain = tk.Label(mainWindow, compound=tk.CENTER, anchor=tk.CENTER, relief=tk.RAISED, width=900, height=600)
 btn_esq = tk.Button(mainWindow, text="Capture", command=prompt_ok)
 btn_dir = tk.Button(mainWindow, text="gerar relatório", command=gerar_relatorio)
 
-lmain.pack()
+lmain.grid(row=0, column=0)
 btn_esq.place(bordermode=tk.INSIDE, relx=0.25, rely=0.9, anchor=tk.CENTER, width=300, height=50)
 btn_dir.place(bordermode=tk.INSIDE, relx=0.75, rely=0.9, anchor=tk.CENTER, width=300, height=50)
 #button.focus()
-
 
 def show_frame():
     global cancel, prevImg, btn_esq, btn_dir
